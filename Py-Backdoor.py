@@ -14,11 +14,11 @@ ROOT_PATH = os.environ['SystemRoot']
 
 
 if __name__ == '__main__':
-    # if sys.argv[-1] != ASADMIN:
-    #     script = os.path.abspath(sys.argv[0])
-    #     params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
-    #     shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
-    #     sys.exit()
+    if sys.argv[-1] != ASADMIN:
+        script = os.path.abspath(sys.argv[0])
+        params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
+        shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
+        sys.exit()
 
     if os.path.isdir(os.path.join(ROOT_PATH,'Winx')) is False:
         # root 파일을 레지스트리에 등록
