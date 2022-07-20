@@ -1,5 +1,6 @@
 # This is a simple backdoor
-It has no payload, Just for Privilege Escalation and Persistence<br> Please See below.
+It has no C2C payload.
+<br>Just for Privilege Escalation and Persistence<br> <br>Please See below.
 <br><br>
 ### Functions
 * Auto run as admin
